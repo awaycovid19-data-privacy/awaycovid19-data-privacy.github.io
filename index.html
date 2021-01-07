@@ -27,17 +27,16 @@
                 }).setView(initLatLng);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
-                $.getJSON('https://mapedia.co.th/demo/view_tracking.php?type=json_user&userid=Uac75c4babcd74ff01cc3faa0efa2a4b2', (data) => {
-                    const theLatLng = [data.features[0].properties.lat, data.features[0].properties.lng];
-                    const lastSeen  = data.features[0].properties.date_view;
+                 $.getJSON('https://rti2dss.com:3200/anticov-api/memberloc', (data) => {
 
-                    mymap.setView(theLatLng);
-                    
-                    const marker = L.marker(theLatLng);
-                    marker.addTo(mymap).bindPopup(`<center><b>Teerayoot was here<br>${moment(lastSeen).fromNow()}</b></center>`).openPopup();
-
-                    mymap.on('click', (e) => {
-                        marker.openPopup();
+                    data.forEach((d) => {
+                        const circleMarkerOpts = {
+                            fillColor: '#f03',
+                            fillOpacity: 0.5,
+                            radius: 5,
+                            stroke: false,
+                        };
+                        L.circleMarker([d.lat, d.lng], circleMarkerOpts).addTo(mymap);
                     });
                 })
 
