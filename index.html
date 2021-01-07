@@ -1,0 +1,48 @@
+ <html>
+    <head>
+        <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+            crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://momentjs.com/downloads/moment.js"></script>
+        <style>
+            body { margin: 0; }
+            #mapid { height: 100%; }
+        </style>
+    </head>
+    <body>
+        <div id="mapid"></div>
+        <script>
+            $(() => {
+                $('a').parent().remove();
+
+                const initLatLng = ["16.7506834", "100.2048037"];
+                const mymap = L.map('mapid', {
+                        maxZoom: 18,
+                        zoom: 13,
+                }).setView(initLatLng);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
+
+                $.getJSON('https://mapedia.co.th/demo/view_tracking.php?type=json_user&userid=Uac75c4babcd74ff01cc3faa0efa2a4b2', (data) => {
+                    const theLatLng = [data.features[0].properties.lat, data.features[0].properties.lng];
+                    const lastSeen  = data.features[0].properties.date_view;
+
+                    mymap.setView(theLatLng);
+                    
+                    const marker = L.marker(theLatLng);
+                    marker.addTo(mymap).bindPopup(`<center><b>Teerayoot was here<br>${moment(lastSeen).fromNow()}</b></center>`).openPopup();
+
+                    mymap.on('click', (e) => {
+                        marker.openPopup();
+                    });
+                })
+
+                
+            });
+        </script>
+    </body>
+</html>
