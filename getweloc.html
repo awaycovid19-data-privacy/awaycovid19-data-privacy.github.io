@@ -27,7 +27,7 @@
                 }).setView(initLatLng);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
-                 $.getJSON('https://rti2dss.com:3200/anticov-api/getweloc/1000', (response) => {
+                 $.getJSON('https://rti2dss.com:3200/anticov-api/getweloc/5000', (response) => {
 
                     response.data.forEach((d) => {
                         const circleMarkerOpts = {
