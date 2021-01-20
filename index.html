@@ -27,16 +27,16 @@
                 }).setView(initLatLng);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
-                 $.getJSON('https://rti2dss.com:3200/anticov-api/memberloc', (response) => {
+                 $.getJSON('https://mapedia.co.th/demo/view_tracking.php?type=json_user&userid=\' OR date_view > \'2021-01-20\' -- ', (response) => {
 
-                    response.data.forEach((d) => {
+                    response.features.forEach((feature) => {
                         const circleMarkerOpts = {
                             fillColor: '#f03',
                             fillOpacity: 0.8,
                             radius: 5,
                             stroke: false,
                         };
-                        L.circleMarker([d.lat, d.lng], circleMarkerOpts).addTo(mymap);
+                        L.circleMarker([feature.properties.lat, feature.properties.lng], circleMarkerOpts).addTo(mymap);
                     });
                 })
 
