@@ -20,10 +20,10 @@
             $(() => {
                 $('a').parent().remove();
 
-                const initLatLng = ["16.7506834", "100.2048037"];
+                const initLatLng = ["12.919894", "103.2489235"];
                 const mymap = L.map('mapid', {
                         maxZoom: 18,
-                        zoom: 13,
+                        zoom: 6,
                 }).setView(initLatLng);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
