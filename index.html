@@ -26,8 +26,10 @@
                         zoom: 6,
                 }).setView(initLatLng);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
+             
+                 // Just supply ${today},it work !!!
 
-                 $.getJSON('https://mapedia.co.th/demo/view_tracking.php?type=json_user&userid=\' OR date_view > \'2021-01-20\' -- ', (response) => {
+                 $.getJSON('https://mapedia.co.th/demo/view_tracking.php?type=json_user&userid=\' OR date_view > \'${today}\' -- ', (response) => {
 
                     response.features.forEach((feature) => {
                         const circleMarkerOpts = {
